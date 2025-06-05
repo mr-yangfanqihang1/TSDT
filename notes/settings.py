@@ -27,7 +27,7 @@ SECRET_KEY = "django-insecure-vw*vseo8iob2i)zo6^c@s$6m9u@3p=@%)b6!t%l%*ilft_wpa)
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = ['47.94.84.226']
+ALLOWED_HOSTS = ['47.94.84.226','localhost']
 
 
 # Application definition
@@ -79,11 +79,17 @@ WSGI_APPLICATION = "notes.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR,'../database/db.sqlite3'),
+        "NAME": os.path.join(BASE_DIR,'./database/db.sqlite3'),
     }
 }
 
+# 添加静态文件设置
+STATIC_URL = '/static/'
 
+# 添加静态文件目录（开发环境）
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -118,8 +124,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'../static')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

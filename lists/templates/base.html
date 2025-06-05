@@ -1,41 +1,89 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width,initial-scale=1">
-        <title>To-Do lists</title>
-        <link href="/static/bootstrap/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    </head>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>To-Do lists</title>
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <style>
+        /* 整体水平居中 */
+        .container {
+            text-align: center;
+        }
+        
+        /* 容器内容水平居中 */
+        .row, .col-md-6, .jumbotron {
+            margin-left: auto;
+            margin-right: auto;
+            float: none;
+        }
+        
+        /* 标题和输入框文本居中 */
+        h1, .form-control {
+            text-align: center !important;
+        }
+        
+        /* 表格整体居中 */
+        table {
+            margin-left: auto;
+            margin-right: auto;
+            width: auto; /* 让表格根据内容自适应宽度 */
+        }
+        
+        /* 列表容器居中 */
+        .list-container {
+            display: inline-block;
+            text-align: left; /* 列表内文字左对齐 */
+            width: 100%; /* 或者设置固定宽度 */
+            max-width: 600px; /* 限制最大宽度 */
+        }
+        
+        /* 确保列表项左对齐 */
+        ul, ol {
+            padding-left: 20px;
+            text-align: left;
+        }
+        
+        /* 表格单元格左对齐 */
+        table td {
+            text-align: left !important;
+        }
+        
+        /* 响应式调整 */
+        @media (min-width: 768px) {
+            .col-md-6 {
+                max-width: 600px;
+            }
+        }
+    </style>
+</head>
 
-    <body>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 offset-md-3 jumbotron">
-                    <div class="text-center">
-                        <h1>{% block header_text %}{% endblock %}</h1>
-                        <form method="POST" action="{% block form_action %}{% endblock %}">
-                            <input name="item_text" id="id_new_item" 
-                            class="form-control input-lg"
-                            placeholder="Enter a to-do item" />
-                            {% csrf_token %}
-                        </form>
-                    </div>
-                </div>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 jumbotron">
+                <h1>{% block header_text %}{% endblock %}</h1>
+                <form method="POST" action="{% block form_action %}{% endblock %}">
+                    <input name="item_text" id="id_new_item" 
+                    class="form-control input-lg"
+                    placeholder="Enter a to-do item" />
+                    {% csrf_token %}
+                </form>
             </div>
+        </div>
 
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
+        <div class="row">
+            <div class="col-md-6">
+                <!-- 添加一个容器专门包裹列表 -->
+                <div class="list-container">
                     {% block table %}
                     {% endblock %}
                 </div>
             </div>
-
         </div>
-    </body>
+    </div>
+</body>
 </html>
-
-
-
-
